@@ -10,7 +10,7 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 /*jslint forin:true regexp:false*/
-/*global define require eclipse JSLINT window*/
+/*global define require eclipse Tautologistics window */
 
 window.onload = function() {
 	function validate(contents) {
@@ -24,7 +24,6 @@ window.onload = function() {
 		});
 		var parser = new Tautologistics.NodeHtmlParser.Parser(handler);
 		parser.parseComplete(window.document.body.innerHTML);
-		window.alert(errors);
 		return errors;
 	}
 
