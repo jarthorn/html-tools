@@ -15,15 +15,17 @@
 window.onload = function() {
 	function validate(contents) {
 		var errors = [];
+		var domResult;
 		var handler = new Tautologistics.NodeHtmlParser.DefaultHandler(function(error, dom) {
 			if (error) {
 				errors.push(error);
 			} else {
 				//parsing done
+				domResult = dom;
 			}
 		});
 		var parser = new Tautologistics.NodeHtmlParser.Parser(handler);
-		parser.parseComplete(window.document.body.innerHTML);
+		parser.parseComplete(contents);
 		return errors;
 	}
 
