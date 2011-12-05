@@ -21,20 +21,29 @@ window.onload = function() {
 				domResult = dom;
 			}
 		});
-		var parser = new Tautologistics.NodeHtmlParser.Parser(handler);
+		var options = {includeLocation: true};
+		var parser = new Tautologistics.NodeHtmlParser.Parser(handler, options);
 		parser.parseComplete(contents);
 		return domResult;
 	}
 
 	function domToOutline(dom) {
+		//end recursion
+		if (!dom) {
+			return null;
+		}
 		var outline = [];
-		var element = {
-			label: "test",
-			children: null,
-			start: 0,
-			end: 5
-		};
-		outline.push(element);
+		for (var i = 0; i < dom.length; i++) {
+			var node = dom[i];
+			if (node.name) {
+				var element = {
+					label: node.raw,
+					children: domToOutline(node.children),
+					line: node.location.line
+				};
+				outline.push(element);
+			}
+		}
 		return outline;
 	}
 
